@@ -6,6 +6,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bot.js'
   },
-  mode: 'development',
+  mode: 'production',
   target: 'node'
 };
