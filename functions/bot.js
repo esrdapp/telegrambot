@@ -1,56 +1,54 @@
 const Telegraf = require('telegraf');
-const { Extra, Markup } = require('telegraf');
-const { Web3 } = require('web3');
+const { BinanceChain } = require('@binance-chain/javascript-sdk');
 
-exports.handler = async (event, context) => {
-  // Connect to an Ethereum node
-  const web3 = new Web3(new Web3.providers.HttpProvider('https://hpbnode.com'));
+const BOT_TOKEN = process.env.BOT_TOKEN;
 
-  // Load the ABI for your smart contract
-  const contractABI = require('./abi.json');
+// Connect to a Binance Chain node
+const binanceChain = new BinanceChain('https://dataseed1.defibit.io/');
 
-  // Set the contract address
-  const contractAddress = '0x12345...';
+// Load the ABI for your smart contract
+const contractABI = require('./abi.json');
 
-  // Create an instance of the contract
-  const contract = new web3.eth.Contract(contractABI, contractAddress);
+// Set the contract address
+const contractAddress = '0x12345...';
 
-  const bot = new Telegraf(process.env.BOT_TOKEN);
+// Create an instance of the contract
+const contract = new binanceChain.contract(contractABI, contractAddress);
 
-  bot.start((ctx) => {
-    ctx.reply('Welcome! Type "get balance" to retrieve a contract balance, or "get totalSupply" to retrieve the total supply of a token.');
-  });
+const bot = new Telegraf(BOT_TOKEN);
 
-  bot.on('text', (ctx) => {
-    const message = ctx.update.message.text;
+bot.start((ctx) => {
+  ctx.reply('Welcome! Type "get balance" to retrieve a contract balance, or "get totalSupply" to retrieve the total supply of a token.');
+});
 
-    if (message.toLowerCase() === 'get balance') {
-      // Get the balance of the contract
-      contract.methods.balanceOf('0x12345...').call((error, result) => {
-        if (error) {
-          ctx.reply('Error: ' + error);
-        } else {
-          ctx.reply('Contract balance: ' + result);
-        }
-      });
-    } else if (message.toLowerCase() === 'get totalSupply') {
-      // Get the total supply of the token
-      contract.methods.totalSupply().call((error, result) => {
-        if (error) {
-          ctx.reply('Error: ' + error);
-        } else {
-          ctx.reply('Total supply: ' + result);
-        }
-      });
-    } else {
-      ctx.reply('Invalid command. Type "get balance" or "get totalSupply".');
-    }
-  });
+bot.on('text', (ctx) => {
+  const message = ctx.update.message.text;
 
-  bot.launch();
+  if (message.toLowerCase() === 'get balance') {
+    // Get the balance of the contract
+    contract.methods.balanceOf('0x12345...').call((error, result) => {
+      if (error) {
+        ctx.reply('Error: ' + error);
+      } else {
+        ctx.reply('Contract balance: ' + result);
+      }
+    });
+  } else if (message.toLowerCase() === 'get totalSupply') {
+    // Get the total supply of the token
+    contract.methods.totalSupply().call((error, result) => {
+      if (error) {
+        ctx.reply('Error: ' + error);
+      } else {
+        ctx.reply('Total supply: ' + result);
+      }
+    });
+  } else {
+    ctx.reply('Invalid command. Type "get balance" or "get totalSupply".');
+  }
+});
 
-  return {
-    statusCode: 200,
-    body: 'Bot launched',
-  };
+bot.launch();
+
+module.exports = (req, res) => {
+  res.send('Hello from Netlify! Your bot is now running.');
 };
