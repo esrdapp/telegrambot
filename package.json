@@ -4,7 +4,8 @@
   "dependencies": {
     "telegraf": "^4.10.0",
     "@binance-chain/javascript-sdk": "^2.4.12",
-    "webpack": "^5.24.1"
+    "webpack": "^5.24.1",
+    "webpack-cli": "^4.10.0"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
