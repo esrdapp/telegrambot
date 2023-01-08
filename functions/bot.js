@@ -1,8 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
-// const Telegraf = require('telegraf');
 const { BinanceChain } = require('@binance-chain/javascript-sdk');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
+const chatId = "-1001800847763";
 
 // Connect to a Binance Chain node
 const binanceChain = new BinanceChain('https://bsc-dataseed1.binance.org:443');
@@ -18,7 +18,29 @@ const contract = new binanceChain.contract(contractABI, contractAddress);
 
 const bot = new TelegramBot(BOT_TOKEN, {polling: true});
 
-bot.start((ctx) => {
+bot.onText(/\/balance/, message => {
+  // Get the chat ID and message ID of the message
+  const chatId = message.chat.id;
+  const messageId = message.message_id;
+
+  // Get the balance of the contract
+  w3.eth.getBalance(contractAddress, (error, result) => {
+    if (error) {
+      console.error(error);
+      bot.sendMessage(chatId, 'Sorry, there was an error getting the balance of the contract.');
+    } else {
+      // Send a message with the contract balance
+      bot.sendMessage(chatId, `The balance of the contract is ${result} wei.`, {reply_to_message_id: messageId});
+    }
+  }
+  }
+
+
+
+
+
+
+/* bot.start((ctx) => {
   ctx.reply('Welcome! Type "/balance" to retrieve a contract balance, or "/totalSupply" to retrieve the total supply of the token.');
 });
 
@@ -49,6 +71,8 @@ bot.on('text', (ctx) => {
 });
 
 bot.launch();
+
+*/
 
 module.exports = (req, res) => {
   res.send('Hello from Netlify! Your bot is now running.');
