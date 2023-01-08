@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "dependencies": {
     "telegraf": "^4.10.0",
-    "@binance-chain/javascript-sdk": "^2.4.12"
+    "@binance-chain/javascript-sdk": "^2.4.12",
+    "webpack": "^5.24.1"
   },
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
     "deploy": "netlify-lambda build functions && netlify deploy --prod"
   }
 }
