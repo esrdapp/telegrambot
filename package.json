@@ -2,7 +2,7 @@
   "name": "my-telegram-bot",
   "version": "1.0.0",
   "dependencies": {
-    "telegraf": "^5.19.1",
+    "telegraf": "^4.10.0",
     "@binance-chain/javascript-sdk": "^2.4.12"
   },
   "scripts": {
