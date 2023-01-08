@@ -4,5 +4,9 @@
   "dependencies": {
     "telegraf": "^5.19.1",
     "@binance-chain/javascript-sdk": "^1.5.5"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "deploy": "netlify-lambda build functions && netlify deploy --prod"
   }
 }
