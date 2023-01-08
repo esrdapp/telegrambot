@@ -1,0 +1,8 @@
+{
+  "name": "my-telegram-bot",
+  "version": "1.0.0",
+  "dependencies": {
+    "telegraf": "^5.19.1",
+    "web3": "^1.2.9"
+  }
+}
