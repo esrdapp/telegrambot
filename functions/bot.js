@@ -1,11 +1,11 @@
-const Telegraf = require('telegraf');
+const TelegramBot = require('node-telegram-bot-api');
+// const Telegraf = require('telegraf');
 const { BinanceChain } = require('@binance-chain/javascript-sdk');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
-//const BOT_TOKEN = "5963723556:AAGi_6gnn_Wk9s84hVZFTfQpEV9N52FcHqQ";
 
 // Connect to a Binance Chain node
-const binanceChain = new BinanceChain('https://bsc-dataseed.binance.org/');
+const binanceChain = new BinanceChain('https://bsc-dataseed1.binance.org:443');
 
 // Load the ABI for your smart contract
 const contractABI = require('./abi.json');
@@ -16,16 +16,16 @@ const contractAddress = '0xd2d7289DB68395593D65101753Fec9450ddFB699';
 // Create an instance of the contract
 const contract = new binanceChain.contract(contractABI, contractAddress);
 
-const bot = new Telegraf(BOT_TOKEN);
+const bot = new TelegramBot(BOT_TOKEN, {polling: true});
 
 bot.start((ctx) => {
-  ctx.reply('Welcome! Type "get balance" to retrieve a contract balance, or "get totalSupply" to retrieve the total supply of a token.');
+  ctx.reply('Welcome! Type "/balance" to retrieve a contract balance, or "/totalSupply" to retrieve the total supply of the token.');
 });
 
 bot.on('text', (ctx) => {
   const message = ctx.update.message.text;
 
-  if (message.toLowerCase() === 'get balance') {
+  if (message.toLowerCase() === '/balance') {
     // Get the balance of the contract
     contract.methods.balanceOf('0xd2d7289DB68395593D65101753Fec9450ddFB699').call((error, result) => {
       if (error) {
@@ -34,7 +34,7 @@ bot.on('text', (ctx) => {
         ctx.reply('Contract balance: ' + result);
       }
     });
-  } else if (message.toLowerCase() === 'get totalSupply') {
+  } else if (message.toLowerCase() === '/totalSupply') {
     // Get the total supply of the token
     contract.methods.totalSupply().call((error, result) => {
       if (error) {
@@ -44,7 +44,7 @@ bot.on('text', (ctx) => {
       }
     });
   } else {
-    ctx.reply('Invalid command. Type "get balance" or "get totalSupply".');
+    ctx.reply('Invalid command. Type "/balance" or "/totalSupply".');
   }
 });
 
