@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "telegraf": "^5.19.1",
-    "@binance-chain/javascript-sdk": "4.1.1"
+    "@binance-chain/javascript-sdk": "^2.4.12"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
