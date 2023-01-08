@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "dependencies": {
     "telegraf": "^5.19.1",
-    "web3": "^1.2.9"
+    "@binance-chain/javascript-sdk": "^1.5.5"
   }
 }
