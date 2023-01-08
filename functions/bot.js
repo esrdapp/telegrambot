@@ -18,7 +18,7 @@ const contract = new binanceChain.contract(contractABI, contractAddress);
 
 const bot = new TelegramBot(BOT_TOKEN, {polling: true});
 
-bot.onText(/\/balance/, message => {
+bot.onText(/\/balance/, (message) => {
   // Get the chat ID and message ID of the message
   const chatId = message.chat.id;
   const messageId = message.message_id;
@@ -27,26 +27,24 @@ bot.onText(/\/balance/, message => {
   w3.eth.getBalance(contractAddress, (error, result) => {
     if (error) {
       console.error(error);
-      bot.sendMessage(chatId, 'Sorry, there was an error getting the balance of the contract.');
+      bot.sendMessage(
+        chatId,
+        "Sorry, there was an error getting the balance of the contract."
+      );
     } else {
       // Send a message with the contract balance
-      bot.sendMessage(chatId, `The balance of the contract is ${result} wei.`, {reply_to_message_id: messageId});
+      bot.sendMessage(chatId, `The balance of the contract is ${result} wei.`, {
+        reply_to_message_id: messageId,
+      });
     }
-  }
-  }
-
-
-
-
-
+  });
+});
 
 /* bot.start((ctx) => {
   ctx.reply('Welcome! Type "/balance" to retrieve a contract balance, or "/totalSupply" to retrieve the total supply of the token.');
 });
-
 bot.on('text', (ctx) => {
   const message = ctx.update.message.text;
-
   if (message.toLowerCase() === '/balance') {
     // Get the balance of the contract
     contract.methods.balanceOf('0xd2d7289DB68395593D65101753Fec9450ddFB699').call((error, result) => {
@@ -69,11 +67,9 @@ bot.on('text', (ctx) => {
     ctx.reply('Invalid command. Type "/balance" or "/totalSupply".');
   }
 });
-
 bot.launch();
-
 */
 
 module.exports = (req, res) => {
-  res.send('Hello from Netlify! Your bot is now running.');
+  res.send("Hello from Netlify! Your bot is now running.");
 };
