@@ -1,8 +1,8 @@
 const Telegraf = require('telegraf');
 const { BinanceChain } = require('@binance-chain/javascript-sdk');
 
-//const BOT_TOKEN = process.env.BOT_TOKEN;
-const BOT_TOKEN = "5963723556:AAGi_6gnn_Wk9s84hVZFTfQpEV9N52FcHqQ";
+const BOT_TOKEN = process.env.BOT_TOKEN;
+//const BOT_TOKEN = "5963723556:AAGi_6gnn_Wk9s84hVZFTfQpEV9N52FcHqQ";
 
 // Connect to a Binance Chain node
 const binanceChain = new BinanceChain('https://bsc-dataseed.binance.org/');
