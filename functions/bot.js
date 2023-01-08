@@ -10,7 +10,7 @@ Keep your token secure and store it safely, it can be used by anyone to control 
 
 For a description of the Bot API, see this page: https://core.telegram.org/bots/api
 // Connect to a Binance Chain node
-const binanceChain = new BinanceChain('https://dataseed1.defibit.io/');
+const binanceChain = new BinanceChain('https://bsc-dataseed.binance.org/');
 
 // Load the ABI for your smart contract
 const contractABI = require('./abi.json');
