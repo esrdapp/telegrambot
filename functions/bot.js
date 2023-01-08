@@ -10,7 +10,7 @@ const binanceChain = new BinanceChain('https://dataseed1.defibit.io/');
 const contractABI = require('./abi.json');
 
 // Set the contract address
-const contractAddress = '0x12345...';
+const contractAddress = '0xd2d7289DB68395593D65101753Fec9450ddFB699';
 
 // Create an instance of the contract
 const contract = new binanceChain.contract(contractABI, contractAddress);
@@ -26,7 +26,7 @@ bot.on('text', (ctx) => {
 
   if (message.toLowerCase() === 'get balance') {
     // Get the balance of the contract
-    contract.methods.balanceOf('0x12345...').call((error, result) => {
+    contract.methods.balanceOf('0xd2d7289DB68395593D65101753Fec9450ddFB699').call((error, result) => {
       if (error) {
         ctx.reply('Error: ' + error);
       } else {
